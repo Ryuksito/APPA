@@ -96,5 +96,14 @@ public class Books extends Fragment {
         }
 
         db.close();
+
+        lastName.setText("");
+        initials.setText("");
+        publicationYear.setText("");
+        title.setText("");
+        edition.setText("");
+        publicationPlace.setText("");
+        editorial.setText("");
+
     }
 }

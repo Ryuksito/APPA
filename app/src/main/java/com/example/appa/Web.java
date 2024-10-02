@@ -1,5 +1,6 @@
 package com.example.appa;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,11 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
 import android.widget.Toast;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class Web extends Fragment {
 
@@ -72,6 +78,11 @@ public class Web extends Fragment {
         String consultationDateValue = String.valueOf(consultationtionDate.getText());
         String urlValue = String.valueOf(url.getText());
 
+        if(!isValidDate(publicationDateValue) || !isValidDate(consultationDateValue) ){
+            Toast.makeText(getContext(), "Invalid date format", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if (lastNameValue.isEmpty() || titleValue.isEmpty() || urlValue.isEmpty()) {
             Toast.makeText(getContext(), "Please fill in all required fields", Toast.LENGTH_SHORT).show();
             return;
@@ -95,5 +106,24 @@ public class Web extends Fragment {
 
         db.close();
 
+        lastName.setText("");
+        initials.setText("");
+        publicationDate.setText("");
+        title.setText("");
+        consultationtionDate.setText("");
+        url.setText("");
+
+    }
+
+    public static boolean isValidDate(String date) {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        dateFormat.setLenient(false);
+
+        try {
+            dateFormat.parse(date);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.appa;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,8 @@ import java.util.List;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.example.appa.activities.EditActivity;
 
 import android.widget.Toast;
 
@@ -44,6 +47,11 @@ public class ReferenceAdapter extends RecyclerView.Adapter<ReferenceAdapter.Refe
         holder.textViewReference.setText(reference);
 
         holder.buttonEdit.setOnClickListener(v -> {
+            // quiero llamar a otro activity import com.example.appa.activities.EditActivity;
+            // Llamar a EditActivity usando el contexto del botón
+            Intent intent = new Intent(holder.buttonEdit.getContext(), EditActivity.class);
+            intent.putExtra("reference_item", items.get(position));
+            holder.buttonEdit.getContext().startActivity(intent);
         });
 
         holder.buttonDelete.setOnClickListener(v -> {

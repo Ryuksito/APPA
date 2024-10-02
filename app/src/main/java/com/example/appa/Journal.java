@@ -1,5 +1,6 @@
 package com.example.appa;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,9 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
 import android.widget.Toast;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 
 public class Journal extends Fragment {
@@ -77,6 +81,11 @@ public class Journal extends Fragment {
         String issueNumberValue = String.valueOf(issueNumber.getText());
         String pagesValue = String.valueOf(pages.getText());
 
+        if(!isValidDate(publicationDateValue)){
+            Toast.makeText(getContext(), "Invalid date format", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if (lastNameValue.isEmpty() || titleValue.isEmpty()) {
             Toast.makeText(getContext(), "Please fill in all required fields", Toast.LENGTH_SHORT).show();
             return;
@@ -100,5 +109,25 @@ public class Journal extends Fragment {
         }
 
         db.close();
+
+        lastName.setText("");
+        initials.setText("");
+        publicationDate.setText("");
+        title.setText("");
+        volume.setText("");
+        issueNumber.setText("");
+        pages.setText("");
+    }
+
+    public static boolean isValidDate(String date) {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        dateFormat.setLenient(false);
+
+        try {
+            dateFormat.parse(date);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
     }
 }

@@ -19,8 +19,13 @@ import android.text.TextWatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,6 +42,7 @@ public class Search extends Fragment {
     private List<String> referenceList;
 
     private String searchOption;
+    private TextInputEditText searchInput;
 
     public Search() {
         // Required empty public constructor
@@ -52,6 +58,12 @@ public class Search extends Fragment {
 
         apaReferences = new ArrayList<>();
         initializeApaTemplates();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        dbSearch(String.valueOf(searchInput.getText()));
     }
 
     @Override
@@ -82,6 +94,7 @@ public class Search extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 searchOption = parent.getItemAtPosition(position).toString();
+                dbSearch(String.valueOf(searchInput.getText()));
             }
 
             @Override
@@ -89,7 +102,7 @@ public class Search extends Fragment {
             }
         });
 
-        TextInputEditText searchInput = view.findViewById(R.id.text_input_search);
+        searchInput = view.findViewById(R.id.text_input_search);
         searchInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -180,7 +193,7 @@ public class Search extends Fragment {
                     reference = apaReferences.get(1) // Plantilla para journals
                             .replace("{author_initials}", authorInitials)
                             .replace("{author_lastname}", authorLastname)
-                            .replace("{publication_date}", publicationDate)
+                            .replace("{publication_date}", Objects.requireNonNull(convertDate(publicationDate)))
                             .replace("{title}", title)
                             .replace("{volume}", volume)
                             .replace("{issue_number}", issueNumber)
@@ -199,9 +212,9 @@ public class Search extends Fragment {
                     reference = apaReferences.get(2) // Plantilla para webs
                             .replace("{author_initials}", authorInitials)
                             .replace("{author_lastname}", authorLastname)
-                            .replace("{publication_date}", publicationDate)
+                            .replace("{publication_date}", Objects.requireNonNull(convertDate(publicationDate)))
                             .replace("{title}", title)
-                            .replace("{consultation_date}", consultationDate)
+                            .replace("{consultation_date}", Objects.requireNonNull(convertDateToWords(consultationDate)))
                             .replace("{url}", url);
                     break;
             }
@@ -228,6 +241,30 @@ public class Search extends Fragment {
         apaReferences.add(bookTemplate);
         apaReferences.add(journalTemplate);
         apaReferences.add(webTemplate);
+    }
+
+    public static String convertDate(String date) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy, MMMM", Locale.ENGLISH);
+
+        try {
+            Date parsedDate = inputFormat.parse(date);
+            return outputFormat.format(parsedDate);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
+
+    public static String convertDateToWords(String date) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("MMMM, dd, yyyy", new Locale("es", "ES"));
+
+        try {
+            Date parsedDate = inputFormat.parse(date);
+            return outputFormat.format(parsedDate);
+        } catch (ParseException e) {
+            return null;
+        }
     }
 
 }

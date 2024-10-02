@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".screens.BookEdit">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:columnCount="2"
+        android:rowCount="7">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textSize="18sp"
+            android:paddingEnd="8dp"
+            android:text="Last Name:" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_input_last_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="Enter the last name" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textSize="18sp"
+            android:paddingEnd="8dp"
+            android:text="Initials name: " />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_input_initials_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="Enter the last name" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textSize="18sp"
+            android:paddingEnd="8dp"
+            android:text="Publication year: " />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_input_publication_year"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="Enter the publication year" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textSize="18sp"
+            android:paddingEnd="8dp"
+            android:text="Title: " />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_input_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="Enter the title" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textSize="18sp"
+            android:paddingEnd="8dp"
+            android:text="Edition: " />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_input_edition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="Enter the edition" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textSize="18sp"
+            android:paddingEnd="8dp"
+            android:text="Publication place: " />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_input_publication_place"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="Enter the Publication place" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textSize="18sp"
+            android:paddingEnd="8dp"
+            android:text="Editorial: " />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_input_editorial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="Enter the Editorial" />
+    </GridLayout>
+
+
+</LinearLayout>

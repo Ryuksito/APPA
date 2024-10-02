@@ -26,7 +26,7 @@ public class AdminSQLite extends SQLiteOpenHelper {
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "author_lastname TEXT, " +
                 "author_initials TEXT, " +
-                "publication_date TEXT, " +  // SQLite usa TEXT para almacenar fechas
+                "publication_date TEXT, " +
                 "title TEXT, " +
                 "volume INTEGER, " +
                 "issue_number INTEGER, " +
