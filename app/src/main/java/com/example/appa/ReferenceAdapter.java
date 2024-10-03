@@ -1,5 +1,6 @@
 package com.example.appa;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -55,9 +56,15 @@ public class ReferenceAdapter extends RecyclerView.Adapter<ReferenceAdapter.Refe
         });
 
         holder.buttonDelete.setOnClickListener(v -> {
-            references.remove(position);
-            notifyItemRemoved(position);
-            deleteItem(holder.buttonDelete.getContext(), items.get(position));
+            new AlertDialog.Builder(holder.buttonDelete.getContext())
+                    .setTitle("Confirm deletion")
+                    .setMessage("Are you sure you want to delete this record?")
+                    .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                        references.remove(position);
+                        notifyItemRemoved(position);
+                        deleteItem(holder.buttonDelete.getContext(), items.get(position));
+                    })
+                    .setNegativeButton(android.R.string.no, null).show();
         });
     }
 
